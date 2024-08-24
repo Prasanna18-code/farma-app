@@ -15,6 +15,25 @@ class LoginView extends StatelessWidget {
     }
   }
 
+  String? _validateEmail(value) {
+    if (value!.isEmpty) {
+      return 'Please enter an email';
+    }
+    RegExp emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    if (!emailRegExp.hasMatch(value)) {
+      return 'Please enter a valid email';
+    }
+    return null;
+  }
+
+  String? _validatePassword(value) {
+    if (value!.isEmpty) {
+      return 'Please enter a password';
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,6 +77,7 @@ class LoginView extends StatelessWidget {
                     ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: _buildInputDecoration("Email", Icons.email),
+                    validator: _validateEmail,
                   ),
                   SizedBox(
                     height: 16.0,
@@ -72,6 +92,7 @@ class LoginView extends StatelessWidget {
                     keyboardType: TextInputType.phone,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: _buildInputDecoration("Password", Icons.lock),
+                    validator: _validatePassword,
                   ),
                   SizedBox(
                     height: 40.0,
